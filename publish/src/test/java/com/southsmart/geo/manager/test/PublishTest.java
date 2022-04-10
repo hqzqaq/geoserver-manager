@@ -83,7 +83,8 @@ public class PublishTest {
         // geoServerManager.createGeoTIFFLayer(workspace,"word",new File("E:\\desktop\\test-data\\tif\\ddyx_CGCS2000_1201.tif"));
 
         //geoServerManager.createGeoTIFFLayer("zhengzhou",store,new File("\\\\172.16.11.40\\zhengzhou\\ddyx.tif"),4547);
-        geoServerManager.createGeoTIFFLayer("zhengzhou",store,"yyds",new File("\\\\172.16.11.40\\zhengzhou\\ddyx.tif"),4547);
+        //geoServerManager.createGeoTIFFLayer("zhengzhou",store,"yysy",new File("E:\\desktop\\ddyx-test-0409.tif"),4547);
+        geoServerManager.createGeoTIFFLayer("zhengzhou",store,"yysy",new File("E:\\desktop\\ddyx-test-0409.tif"),4547);
     }
 
     @Test

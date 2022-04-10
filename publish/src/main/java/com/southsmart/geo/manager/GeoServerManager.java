@@ -665,7 +665,25 @@ public class GeoServerManager {
         // {"long-array-array":[[0,44739244,0,19,1],[0,44739244,0,20,1],[0,44739244,0,21,1]]}
         String taskStates = reader.GetSpecificRunningGwcTasks(workspaceName, gwcLayerName);
         JSONObject jsonTaskStates = JSONUtil.parseObj(taskStates);
-        JSONArray taskStatesArray = (JSONArray) jsonTaskStates.get("long-array-array");
+        JSONArray taskStatesArray =  jsonTaskStates.getJSONArray("long-array-array");
+        return taskStatesArray.size() > 0;
+    }
+
+    /**
+     * 获取切片任务状态
+     *
+     * @param workspaceName: 工作空间名
+     * @param gwcLayerName:  切片图层名
+     * @return 是否开始任务
+     * @throws GwcLayerNotFoundException 图层不存在
+     * @Date: 2021/7/19 11:23
+     */
+    public Boolean getTilesTasksStates(String workspaceName, String gwcLayerName) throws GwcLayerNotFoundException {
+        //查询任务执行状态,返回json格式的字符串
+        // {"long-array-array":[[0,44739244,0,19,1],[0,44739244,0,20,1],[0,44739244,0,21,1]]}
+        String taskStates = reader.GetSpecificRunningGwcTasks(workspaceName, gwcLayerName);
+        JSONObject jsonTaskStates = JSONUtil.parseObj(taskStates);
+        JSONArray taskStatesArray = jsonTaskStates.getJSONArray("long-array-array");
         return taskStatesArray.size() > 0;
     }
 
@@ -771,7 +789,7 @@ public class GeoServerManager {
      * @return 更新结果
      */
     private boolean httpPut(String url, String content) {
-        log.info("更新成功：%s", url);
+        log.info("更新成功：{}", url);
         return "".equals(HTTPUtils.putJson(url, content, geoServerRESTPublisher.getUsername(), geoServerRESTPublisher.getPassword()));
     }
 
@@ -782,7 +800,7 @@ public class GeoServerManager {
      * @return 查询结果
      */
     private String httpGet(String url) throws Exception {
-        log.info("查询成功：%s", url);
+        log.info("查询成功：{}", url);
         return HTTPUtils.getAsJSON(url, geoServerRESTPublisher.getUsername(), geoServerRESTPublisher.getPassword()).toString();
     }
 
@@ -794,7 +812,7 @@ public class GeoServerManager {
      * @return
      */
     private boolean httpPost(String url, String content) {
-        log.info("新增成功：%s", url);
+        log.info("新增成功：{}", url);
         return "".equals(HTTPUtils.postJson(url, content, geoServerRESTPublisher.getUsername(), geoServerRESTPublisher.getPassword()));
     }
 
@@ -805,7 +823,7 @@ public class GeoServerManager {
      * @return
      */
     private boolean httpDelete(String url) {
-        log.info("删除成功：%s", url);
+        log.info("删除成功：{}", url);
         return HTTPUtils.delete(url, geoServerRESTPublisher.getUsername(), geoServerRESTPublisher.getPassword());
     }
 
