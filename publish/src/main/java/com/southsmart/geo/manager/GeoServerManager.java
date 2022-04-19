@@ -713,6 +713,7 @@ public class GeoServerManager {
         String taskStates = reader.GetSpecificRunningGwcTasks(workspaceName, gwcLayerName);
         JSONObject jsonTaskStates = JSONUtil.parseObj(taskStates);
         JSONArray taskStatesArray = (JSONArray) jsonTaskStates.get("long-array-array");
+        log.info("切片任务状态：{}",taskStatesArray.toString());
 
         if (taskStatesArray == null) {
             throw new ErrorException(String.format("查询 %s:%s 任务的状态发生异常", workspaceName, gwcLayerName));
@@ -850,5 +851,15 @@ public class GeoServerManager {
      */
     public Boolean removeDataStore(String workspace, String dataStoreName, boolean recurse) throws WorkSpaceNotFoundException, ErrorException {
         return geoServerRESTPublisher.removeDatastore(workspace, dataStoreName, recurse);
+    }
+
+    /**
+     * 图层是否存在
+     *
+     * @param workspace 工作空间名
+     * @param layerName 图层名
+     */
+    public Boolean layerExist(String workspace, String layerName) throws WorkSpaceNotFoundException {
+        return reader.existsWorkspace(workspace) && reader.existsGwcLayers(workspace, layerName);
     }
 }

@@ -31,8 +31,8 @@ import java.net.MalformedURLException;
  */
 
 public class PublishTest {
-    final String url = "http://localhost:8080/geoserver";
-    //final String url = "http://172.16.11.229:8080/geoserver";
+    //final String url = "http://localhost:8080/geoserver";
+    final String url = "http://172.16.11.229:8080/geoserver";
     final String geoServerUserName = "admin";
     final String geoServerPassword = "geoserver";
 
@@ -237,9 +237,10 @@ public class PublishTest {
         System.out.println(aBoolean);
     }
 
-    //@Test
-    //public void gridSetsTest() throws Exception {
-    //    geoServerManager.gridsets();
-    //}
+    @Test
+    public void layerExistTest() throws Exception {
+        Boolean aBoolean = geoServerManager.layerExist("zhengzhou", "LandSupply");
+        System.out.println(aBoolean);
+    }
 
 }
