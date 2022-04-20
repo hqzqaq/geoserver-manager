@@ -410,7 +410,7 @@ public class GeoServerManager {
      * @return 是否发布成功
      * @throws FileNotFoundException 没有找到文件
      */
-    public Boolean createGeoTIFFLayer(String workspaceName, String storeName, File tifFile, int crsCode) throws FileNotFoundException {
+    public Boolean createGeoTIFFLayer(String workspaceName, String storeName, File tifFile, int crsCode) throws FileNotFoundException, WorkSpaceNotFoundException {
         String name = FileUtil.getPrefix(tifFile);
         return publishGeoTiffLayer(workspaceName, storeName, name, tifFile, crsCode);
     }
@@ -426,11 +426,11 @@ public class GeoServerManager {
      * @return 是否发布成功
      * @throws FileNotFoundException 没有找到文件
      */
-    public Boolean createGeoTIFFLayer(String workspaceName, String storeName, String layerName, File tifFile, int crsCode) throws FileNotFoundException {
+    public Boolean createGeoTIFFLayer(String workspaceName, String storeName, String layerName, File tifFile, int crsCode) throws FileNotFoundException, WorkSpaceNotFoundException {
         return publishGeoTiffLayer(workspaceName, storeName, layerName, tifFile, crsCode);
     }
 
-    private Boolean publishGeoTiffLayer(String workspaceName, String storeName, String layerName, File tifFile, int crsCode) throws FileNotFoundException {
+    private Boolean publishGeoTiffLayer(String workspaceName, String storeName, String layerName, File tifFile, int crsCode) throws FileNotFoundException, WorkSpaceNotFoundException {
         String srs = String.format("EPSG:%s", crsCode);
         GSCoverageEncoder gsCoverageEncoder = new GSCoverageEncoder();
         gsCoverageEncoder.setName(layerName);
@@ -446,6 +446,10 @@ public class GeoServerManager {
         gsCoverageEncoder.setProjectionPolicy(REPROJECT_TO_DECLARED);
         GSLayerEncoder gsLayerEncoder = new GSLayerEncoder();
         gsLayerEncoder.setEnabled(true);
+
+        if(!reader.existsDataStore(workspaceName,storeName)){
+            geoServerRESTPublisher.createCoverage(workspaceName,storeName,gsCoverageEncoder);
+        }
         RESTCoverageStore restCoverageStore = geoServerRESTPublisher.publishExternalGeoTIFF(workspaceName, storeName, tifFile, gsCoverageEncoder, gsLayerEncoder);
         if (restCoverageStore != null) {
             log.info(restCoverageStore.getName());

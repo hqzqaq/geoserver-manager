@@ -31,8 +31,8 @@ import java.net.MalformedURLException;
  */
 
 public class PublishTest {
-    //final String url = "http://localhost:8080/geoserver";
-    final String url = "http://172.16.11.229:8080/geoserver";
+    final String url = "http://localhost:8080/geoserver";
+    //final String url = "http://172.16.11.229:8080/geoserver";
     final String geoServerUserName = "admin";
     final String geoServerPassword = "geoserver";
 
@@ -79,12 +79,13 @@ public class PublishTest {
     @Test
     public void testCreateGeoTIFFLayer() throws FileNotFoundException, WorkSpaceNotFoundException, ExistedException, ErrorException {
         String store = "geotiff";
-        //geoServerManager.createGeoTIFFLayer(workspace, new File("src/main/resources/testdata/tiff/word.tiff"));
-        // geoServerManager.createGeoTIFFLayer(workspace,"word",new File("E:\\desktop\\test-data\\tif\\ddyx_CGCS2000_1201.tif"));
+        //geoServerManager.createGeoTIFFLayer(workspace, new File("E:\\desktop\\ddyx-test-0409.tif"));
+        // geoServerManager.createGeoTIFFLayer(workspace,"word",new File("E:\\\\desktop\\\\ddyx-test-0409.tif"));
 
-        //geoServerManager.createGeoTIFFLayer("zhengzhou",store,new File("\\\\172.16.11.40\\zhengzhou\\ddyx.tif"),4547);
+        geoServerManager.createGeoTIFFLayer("zhengzhou",store,new File("E:\\desktop\\ddyx-test-0409.tif"),4547);
+
         //geoServerManager.createGeoTIFFLayer("zhengzhou",store,"yysy",new File("E:\\desktop\\ddyx-test-0409.tif"),4547);
-        geoServerManager.createGeoTIFFLayer("zhengzhou",store,"yysy",new File("E:\\desktop\\ddyx-test-0409.tif"),4547);
+        //geoServerManager.createGeoTIFFLayer("zhengzhou",store,"yysy",new File("E:\\desktop\\ddyx-test-0409.tif"),4547);
     }
 
     @Test
