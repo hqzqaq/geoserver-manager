@@ -31,8 +31,8 @@ import java.net.MalformedURLException;
  */
 
 public class PublishTest {
-    final String url = "http://localhost:8080/geoserver";
-    //final String url = "http://172.16.11.229:8080/geoserver";
+    //final String url = "http://localhost:8080/geoserver";
+    final String url = "http://172.16.11.229:8080/geoserver";
     final String geoServerUserName = "admin";
     final String geoServerPassword = "geoserver";
 
@@ -81,6 +81,7 @@ public class PublishTest {
         String store = "geotiff";
         //geoServerManager.createGeoTIFFLayer(workspace, new File("E:\\desktop\\ddyx-test-0409.tif"));
         // geoServerManager.createGeoTIFFLayer(workspace,"word",new File("E:\\\\desktop\\\\ddyx-test-0409.tif"));
+
 
         geoServerManager.createGeoTIFFLayer("zhengzhou",store,new File("E:\\desktop\\ddyx-test-0409.tif"),4547);
 
@@ -242,6 +243,14 @@ public class PublishTest {
     public void layerExistTest() throws Exception {
         Boolean aBoolean = geoServerManager.layerExist("zhengzhou", "LandSupply");
         System.out.println(aBoolean);
+    }
+
+    @Test
+    public void removeCoverageStoreTest() throws Exception {
+        Boolean zhengzhou = geoServerManager.coverageStoreExist("zhengzhou", "1516675703737679872");
+        System.out.println(zhengzhou);
+        Boolean zhengzhou1 = geoServerManager.removeCoverageStore("zhengzhou", "1516675703737679872", true);
+        System.out.println(zhengzhou1);
     }
 
 }

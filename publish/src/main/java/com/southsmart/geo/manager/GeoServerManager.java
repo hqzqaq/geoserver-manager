@@ -851,10 +851,20 @@ public class GeoServerManager {
      * @param workspace     工作空间名
      * @param dataStoreName 数据存储名
      * @param recurse       是否递归删除
-     * @return
      */
-    public Boolean removeDataStore(String workspace, String dataStoreName, boolean recurse) throws WorkSpaceNotFoundException, ErrorException {
+    public Boolean removeDataStore(String workspace, String dataStoreName, boolean recurse){
         return geoServerRESTPublisher.removeDatastore(workspace, dataStoreName, recurse);
+    }
+
+    /**
+     * 删除栅格数据存储空间
+     *
+     * @param workspace     工作空间名
+     * @param dataStoreName 数据存储名
+     * @param recurse       是否递归删除
+     */
+    public Boolean removeCoverageStore(String workspace, String dataStoreName, boolean recurse){
+        return geoServerRESTPublisher.removeCoverageStore(workspace, dataStoreName, recurse);
     }
 
     /**
@@ -865,5 +875,15 @@ public class GeoServerManager {
      */
     public Boolean layerExist(String workspace, String layerName) throws WorkSpaceNotFoundException {
         return reader.existsWorkspace(workspace) && reader.existsGwcLayers(workspace, layerName);
+    }
+
+    /**
+     * 栅格数据源是否存在
+     *
+     * @param workspace 工作空间名
+     * @param coverageStore 图层名
+     */
+    public Boolean coverageStoreExist(String workspace, String coverageStore) throws WorkSpaceNotFoundException {
+        return reader.existsWorkspace(workspace) && reader.existsCoverageStore(workspace, coverageStore);
     }
 }
